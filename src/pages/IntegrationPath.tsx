@@ -15,6 +15,14 @@ import {
     Share2,
 } from "lucide-react";
 
+import {
+    useCaseData,
+    frontendData,
+    frameworkData,
+    backendData,
+    startingPointData,
+} from "../data/integrationData";
+
 type IntegrationPathProps = {
     useCase: string;
     frontend: string;
@@ -40,43 +48,46 @@ const customTheme = {
     },
 };
 
-const steps = [
-    {
-        number: 1,
-        title: "Set up your test account",
-        description: "Create your Adyen test environment",
-    },
-    {
-        number: 2,
-        title: "Get API credentials",
-        description: "Retrieve your API key and client key",
-    },
-    {
-        number: 3,
-        title: "Choose your integration flow",
-        description: "Select the right flow for your use case",
-    },
-    {
-        number: 4,
-        title: "Add checkout",
-        description: "Integrate Adyen into your React app",
-    },
-    {
-        number: 5,
-        title: "Configure webhooks",
-        description: "Set up payment notifications",
-    },
-    {
-        number: 6,
-        title: "Test integration",
-        description: "Simulate and test payments",
-    },
-    {
-        number: 7,
-        title: "Go live",
-        description: "Prepare for production",
-    },
-];
+// const steps = [
+//     {
+//         number: 1,
+//         title: "Set up your test account",
+//         description: "Create your Adyen test environment",
+//     },
+//     {
+//         number: 2,
+//         title: "Get API credentials",
+//         description: "Retrieve your API key and client key",
+//     },
+//     {
+//         number: 3,
+//         title: "Choose your integration flow",
+//         description: "Select the right flow for your use case",
+//     },
+//     {
+//         number: 4,
+//         title: "Add checkout",
+//         description:
+//             frontend === "web"
+//                 ? `Integrate Adyen into your ${frameworkLabel} app`
+//                 : `Integrate Adyen into your ${frontendLabel} app`,
+//     },
+//     {
+//         number: 5,
+//         title: "Configure webhooks",
+//         description: `Connect payment events to your ${backendLabel} server`,
+//     },
+//     {
+//         number: 6,
+//         title: "Test integration",
+//         description: "Simulate successful and failed payments",
+//     },
+//     {
+//         number: 7,
+//         title: "Go live",
+//         description: "Prepare your integration for production",
+//     },
+// ];
 
 function IntegrationPath({
     useCase,
@@ -84,55 +95,84 @@ function IntegrationPath({
     backend,
     startingPoint,
     onStartOver,
+    frontend
 }: IntegrationPathProps) {
-    const useCaseLabels: Record<string, string> = {
-        online: "Online payments",
-        "in-person": "In-person payments",
-        platform: "Platform / marketplace",
-        payouts: "Payouts",
-    };
 
-    const frameworkLabels: Record<string, string> = {
-        react: "React",
-        vue: "Vue.js",
-        angular: "Angular",
-        vanilla: "Vanilla JavaScript",
-    };
+    const useCaseInfo = useCaseData[useCase];
+    const frontendInfo = frontendData[frontend];
+    const frameworkInfo = frameworkData[framework];
+    const backendInfo = backendData[backend];
+    const startingInfo = startingPointData[startingPoint];
 
-    const backendLabels: Record<string, string> = {
-        node: "Node.js",
-        java: "Java",
-        python: "Python",
-        go: "Go",
-        dotnet: ".NET",
-    };
+    const useCaseLabel = useCaseInfo?.label ?? useCase;
+    const frontendLabel = frontendInfo?.label ?? frontend;
+    const frameworkLabel = frameworkInfo?.label ?? framework;
+    const backendLabel = backendInfo?.label ?? backend;
+    const startingLabel = startingInfo?.label ?? startingPoint;
 
-    const startingLabels: Record<string, string> = {
-        scratch: "Starting from scratch",
-        "test-account": "Test account ready",
-        credentials: "API credentials ready",
-    };
+    const steps = [
+        {
+            number: 1,
+            title: "Set up your test account",
+            description: "Create your Adyen test environment",
+        },
+        {
+            number: 2,
+            title: "Get API credentials",
+            description: "Retrieve your API key and client key",
+        },
+        {
+            number: 3,
+            title: "Choose your integration flow",
+            description: "Select the right flow for your use case",
+        },
+        {
+            number: 4,
+            title: "Add checkout",
+            description:
+                frontend === "web"
+                    ? `Integrate Adyen into your ${frameworkLabel} app`
+                    : `Integrate Adyen into your ${frontendLabel} app`,
+        },
+        {
+            number: 5,
+            title: "Configure webhooks",
+            description: `Connect payment events to your ${backendLabel} server`,
+        },
+        {
+            number: 6,
+            title: "Test integration",
+            description: "Simulate successful and failed payments",
+        },
+        {
+            number: 7,
+            title: "Go live",
+            description: "Prepare your integration for production",
+        },
+    ];
 
-    const useCaseLabel = useCaseLabels[useCase] ?? useCase;
-    const frameworkLabel = frameworkLabels[framework] ?? framework;
-    const backendLabel = backendLabels[backend] ?? backend;
-    const startingLabel = startingLabels[startingPoint] ?? startingPoint;
+    const initialStep =
+        startingPoint === "scratch"
+            ? 1
+            : startingPoint === "test-account"
+                ? 2
+                : 3;
 
-    const [currentStep, setCurrentStep] = useState(3);
+    const [currentStep, setCurrentStep] = useState(initialStep);
     const [viewMode, setViewMode] = useState<"essential" | "full">("essential");
     const [activeCodeTab, setActiveCodeTab] = useState<
         "frontend" | "backend" | "curl"
     >("frontend");
 
-    const codeExample = `// Create a session on your server
-const response = await fetch('/api/create-session', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    amount: { value: 1000, currency: 'EUR' },
-    reference: 'Your order reference'
-  })
-});`;
+    //     const codeExample = `// Create a session on your server
+    // const response = await fetch('/api/create-session', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     amount: { value: 1000, currency: 'EUR' },
+    //     reference: 'Your order reference'
+    //   })
+    // });`;
 
     const backendCode = `// Create a session on your server
 const response = await fetch('/api/create-session', {
@@ -167,12 +207,21 @@ const checkout = await AdyenCheckout({
                 : curlCode;
 
     const progress = Math.round((currentStep / steps.length) * 100);
+
+    const currentStepData = steps.find(
+        (step) => step.number === currentStep
+    )!;
+
+    const nextStep =
+        currentStep < steps.length
+            ? steps[currentStep]
+            : null;
+
     function markAsComplete() {
         setCurrentStep((prev) => {
-            return prev < 7 ? prev + 1 : 7;
+            return prev < steps.length ? prev + 1 : steps.length;
         });
     }
-
     function previousStep() {
         setCurrentStep((prev) => {
             return prev > 1 ? prev - 1 : 1;
@@ -271,7 +320,9 @@ const checkout = await AdyenCheckout({
 
                     <div className="integration-tag">
                         <Code2 size={15} />
-                        <span>{frameworkLabel}</span>
+                        <span>
+                            {frontend === "web" ? frameworkLabel : frontendLabel}
+                        </span>
                     </div>
 
                     <div className="integration-tag">
@@ -299,15 +350,19 @@ const checkout = await AdyenCheckout({
                 </div>
 
                 <section className="integration-content-card">
-                    <span className="current-step-label">Step 3</span>
+                    <span className="current-step-label">
+                        Step {currentStep}
+                    </span>
 
-                    <h2>Choose your integration flow</h2>
+                    <h2>{currentStepData.title}</h2>
 
                     <p>
-                        For most online payment integrations, we recommend using the
-                        <strong> Sessions flow</strong>. It provides the best balance of
-                        security, performance and flexibility, and works well with Adyen's
-                        Drop-in components.
+                        Based on your{" "}
+                        <strong>
+                            {frontend === "web" ? frameworkLabel : frontendLabel}
+                        </strong>{" "}
+                        frontend and <strong>{backendLabel}</strong> backend, we recommend
+                        starting with the <strong>Sessions flow</strong>.
                     </p>
 
                     <p>
@@ -473,21 +528,23 @@ const checkout = await AdyenCheckout({
                     </a>
                 </div>
 
-                <div className="right-section next-up-section">
-                    <span className="next-up-label">Next up</span>
+                {nextStep && (
+                    <div className="right-section next-up-section">
+                        <span className="next-up-label">Next up</span>
 
-                    <div className="next-up-row">
-                        <ChevronRight size={16} />
+                        <div className="next-up-row">
+                            <ChevronRight size={16} />
 
-                        <div>
-                            <strong>Step 4. Add checkout</strong>
-                            <p>
-                                Integrate Adyen's checkout components into your
-                                {frameworkLabel} app.
-                            </p>
+                            <div>
+                                <strong>
+                                    Step {nextStep.number}. {nextStep.title}
+                                </strong>
+
+                                <p>{nextStep.description}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
 
                 <div className="final-help-card">
                     <MessageSquareText size={20} />
