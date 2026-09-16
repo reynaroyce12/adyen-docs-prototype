@@ -7,30 +7,30 @@ import {
 
 
 const options = [
-    {
-        id: "online",
-        title: "Online payments",
-        description: "Accept payments online through web or mobile apps.",
-        icon: CreditCard
-    },
-    {
-        id: "in-person",
-        title: "In-person payments",
-        description: "Accept payments at physical locations (POS).",
-        icon: Store
-    },
-    {
-        id: "platform",
-        title: "Platform / marketplace",
-        description: "Enable payments for multiple businesses or sellers.",
-        icon: Layers3
-    },
-    {
-        id: "payouts",
-        title: "Payouts",
-        description: "Send money to users, partners or connected accounts.",
-        icon: ArrowLeftRight
-    },
+  {
+    id: "online",
+    title: "Online payments",
+    description: "Accept payments online through web or mobile apps.",
+    icon: CreditCard,
+  },
+  {
+    id: "in-person",
+    title: "In-person payments",
+    description: "Accept payments at physical locations.",
+    icon: Store,
+  },
+  {
+    id: "platform",
+    title: "Platform / marketplace",
+    description: "Build payment experiences for your users.",
+    icon: Layers3,
+  },
+  {
+    id: "payouts",
+    title: "Payouts",
+    description: "Send funds to customers or users.",
+    icon: ArrowLeftRight,
+  },
 ];
 
 type StepOneProps = {
@@ -76,32 +76,38 @@ function StepOne({ selected, onSelect, onContinue }: StepOneProps) {
                         Choose the use case that best describes your integration.
                     </p>
 
-                    <div className="option-grid">
-                        {options.map((option) => {
-                            const Icon = option.icon;
-                            const isSelected = selected === option.id
+<div className="option-grid">
+    {options.map((option) => {
+        const Icon = option.icon;
 
-                            return (
-                                <button
-                                    key={option.id}
-                                    type="button"
-                                    onClick={() => onSelect(option.id)}
-                                    className={`option-card ${isSelected ? "selected" : ""}`}
-                                >
-                                    <div className="option-top">
-                                        <Icon size={28} strokeWidth={1.8} />
-
-                                        <div
-                                            className={`radio ${isSelected ? "selected-radio" : ""}`}
-                                        />
-                                    </div>
-
-                                    <h3>{option.title}</h3>
-                                    <p>{option.description}</p>
-                                </button>
-                            );
-                        })}
+        return (
+            <button
+                key={option.id}
+                type="button"
+                className={`option-card ${
+                    selected === option.id ? "selected" : ""
+                }`}
+                onClick={() => onSelect(option.id)}
+            >
+                <div className="option-card-content">
+                    <div className="option-icon">
+                        <Icon size={24} />
                     </div>
+
+                    <div>
+                        <h3>{option.title}</h3>
+                        <p>{option.description}</p>
+                    </div>
+                </div>
+            </button>
+        );
+    })}
+</div>
+                    <p className="prototype-note">
+                        {selected === "online"
+                            ? "This prototype currently demonstrates the Online payments integration path."
+                            : "This concept supports personalized paths across use cases. The interactive prototype currently demonstrates Online payments."}
+                    </p>
 
                     <div className="info-strip">
                         <span className="info-circle">i</span>
@@ -112,6 +118,7 @@ function StepOne({ selected, onSelect, onContinue }: StepOneProps) {
                         <button
                             className="continue-button"
                             onClick={onContinue}
+                            disabled={selected !== "online"}
                         >
                             Continue <span>→</span>
                         </button>

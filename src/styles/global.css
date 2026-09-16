@@ -449,6 +449,20 @@ button {
     gap: 18px;
 }
 
+.continue-button:disabled {
+  background: #d8dee8;
+  color: #8a96a8;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 1;
+}
+
+.continue-button:disabled:hover {
+  background: #d8dee8;
+  transform: none;
+  box-shadow: none;
+}
+
 .step-info-panel {
     display: flex;
     flex-direction: column;
@@ -2126,3 +2140,35 @@ button {
   cursor: pointer;
 }
 
+.option-card.disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+  background: #fafbfc;
+}
+
+.option-card.disabled:hover {
+  border-color: var(--border);
+  box-shadow: none;
+  transform: none;
+}
+
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 8px;
+
+  border-radius: 999px;
+  background: #f0f3f7;
+  color: #69778c;
+
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.prototype-note {
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: 12px;
+}

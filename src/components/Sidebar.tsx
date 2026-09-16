@@ -23,7 +23,7 @@ function Sidebar({ currentStep }: SidebarProps) {
 
     return (
         <aside className="sidebar">
-            <button className="all-guides">← All guides</button>
+            {/* <button className="all-guides">← All guides</button> */}
 
             <div className="sidebar-title-row">
                 <h2>Guided integration path</h2>

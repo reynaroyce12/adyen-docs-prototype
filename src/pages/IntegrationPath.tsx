@@ -304,7 +304,7 @@ const checkout = await AdyenCheckout({
                     </div>
 
                     <div className="integration-title-actions">
-                        <button>
+                        <button onClick={() => navigator.clipboard.writeText(window.location.href)}>
                             <Share2 size={16} />
                             Share
                         </button>
@@ -506,7 +506,11 @@ const checkout = await AdyenCheckout({
                     </a> */}
 
                     <div className="integration-card-footer">
-                        <button className="back-button" onClick={previousStep}>
+                        <button
+                            className="back-button"
+                            onClick={previousStep}
+                            disabled={currentStep === 1}
+                        >
                             ← Previous step
                         </button>
 
