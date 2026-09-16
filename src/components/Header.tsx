@@ -1,9 +1,11 @@
+import { Adyen } from "@dev.icons/react";
+
 function Header() {
   return (
     <header className="topbar">
       <div className="brand">
-        <span className="adyen-logo">adyen</span>
-        <span className="docs-label">docs</span>
+        <Adyen size={72} />
+        <span className="docs-label"><span className="brand-divider">|</span> DOCS</span>
       </div>
 
       <nav className="top-nav">

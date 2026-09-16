@@ -48,17 +48,26 @@ button {
     gap: 12px;
     white-space: nowrap;
 }
-
+/* 
 .adyen-logo {
-    font-size: 28px;
+    font-size: 10px;
     font-weight: 800;
     color: var(--green);
     letter-spacing: -1.5px;
-}
+} */
 
 .docs-label {
-    font-size: 20px;
+    font-size: 12px;
+
 }
+
+.brand-divider {
+  color: var(--green);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+}
+
 
 .top-nav {
     display: flex;
@@ -2096,3 +2105,11 @@ button {
   text-decoration: none;
   font-size: 13px;
 }
+
+.sidebar-help-link {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
