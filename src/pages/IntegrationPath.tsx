@@ -1,6 +1,7 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useState } from "react";
+import { pathContent } from "../data/pathContent";
 
 import {
     Check,
@@ -158,11 +159,13 @@ function IntegrationPath({
                 ? 2
                 : 3;
 
+
     const [currentStep, setCurrentStep] = useState(initialStep);
     const [viewMode, setViewMode] = useState<"essential" | "full">("essential");
     const [activeCodeTab, setActiveCodeTab] = useState<
         "frontend" | "backend" | "curl"
     >("frontend");
+    const stepContent = pathContent[currentStep];
 
     //     const codeExample = `// Create a session on your server
     // const response = await fetch('/api/create-session', {
@@ -208,9 +211,9 @@ const checkout = await AdyenCheckout({
 
     const progress = Math.round((currentStep / steps.length) * 100);
 
-    const currentStepData = steps.find(
-        (step) => step.number === currentStep
-    )!;
+    // const currentStepData = steps.find(
+    //     (step) => step.number === currentStep
+    // )!;
 
     const nextStep =
         currentStep < steps.length
@@ -351,27 +354,62 @@ const checkout = await AdyenCheckout({
 
                 <section className="integration-content-card">
                     <span className="current-step-label">
-                        Step {currentStep}
+                        {stepContent.eyebrow}
                     </span>
 
-                    <h2>{currentStepData.title}</h2>
+                    <h2>{stepContent.title}</h2>
 
-                    <p>
-                        Based on your{" "}
-                        <strong>
-                            {frontend === "web" ? frameworkLabel : frontendLabel}
-                        </strong>{" "}
-                        frontend and <strong>{backendLabel}</strong> backend, we recommend
-                        starting with the <strong>Sessions flow</strong>.
+                    <p className="step-intro">
+                        {stepContent.intro}
                     </p>
 
-                    <p>
-                        If you have specific requirements, you can also use the
-                        <strong> Advanced flow</strong> for more control over the payment
-                        process.
-                    </p>
+                    {stepContent.actions && (
+                        <div className="step-actions">
+                            {stepContent.actions.map((action, index) => (
+                                <div className="step-action" key={action.title}>
+                                    <div className="step-action-number">
+                                        {index + 1}
+                                    </div>
 
-                    <div className="recommended-box">
+                                    <div>
+                                        <strong>{action.title}</strong>
+                                        <p>{action.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {stepContent.callout && (
+                        <div className="recommended-box">
+                            <div className="recommended-check">
+                                <Check size={14} />
+                            </div>
+
+                            <div>
+                                <strong>{stepContent.callout.title}</strong>
+                                <p>{stepContent.callout.description}</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {stepContent.links && (
+                        <div className="step-links">
+                            {stepContent.links.map((link) => (
+                                <a
+                                    key={link.url}
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    {link.label}
+                                    <ExternalLink size={14} />
+                                </a>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* <div className="recommended-box">
                         <div className="recommended-check">
                             <Check size={14} />
                         </div>
@@ -383,61 +421,81 @@ const checkout = await AdyenCheckout({
                                 integrations.
                             </p>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="code-tabs">
-                        <button
-                            className={activeCodeTab === "frontend" ? "active" : ""}
-                            onClick={() => setActiveCodeTab("frontend")}
-                        >
-                            {frameworkLabel} (Web)
-                        </button>
+                    {(currentStep === 3 || currentStep === 4) && (
+                        <>
+                            <div className="code-tabs">
+                                <button
+                                    className={activeCodeTab === "frontend" ? "active" : ""}
+                                    onClick={() => setActiveCodeTab("frontend")}
+                                >
+                                    {frontend === "web"
+                                        ? `${frameworkLabel} (Web)`
+                                        : frontendLabel}
+                                </button>
 
-                        <button
-                            className={activeCodeTab === "backend" ? "active" : ""}
-                            onClick={() => setActiveCodeTab("backend")}
-                        >
-                            {backendLabel}
-                        </button>
+                                <button
+                                    className={activeCodeTab === "backend" ? "active" : ""}
+                                    onClick={() => setActiveCodeTab("backend")}
+                                >
+                                    {backendLabel}
+                                </button>
 
-                        <button
-                            className={activeCodeTab === "curl" ? "active" : ""}
-                            onClick={() => setActiveCodeTab("curl")}
-                        >
-                            cURL
-                        </button>
-                    </div>
+                                <button
+                                    className={activeCodeTab === "curl" ? "active" : ""}
+                                    onClick={() => setActiveCodeTab("curl")}
+                                >
+                                    cURL
+                                </button>
+                            </div>
 
-                    <div className="code-panel">
-                        <div className="code-panel-header">
-                            <span>JavaScript</span>
+                            <div className="code-panel">
+                                <div className="code-panel-header">
+                                    <span>
+                                        {activeCodeTab === "curl"
+                                            ? "bash"
+                                            : activeCodeTab === "backend"
+                                                ? backendLabel
+                                                : "JavaScript"}
+                                    </span>
 
-                            <button
-                                onClick={() => navigator.clipboard.writeText(displayedCode)}
-                            >
-                                Copy
-                            </button>
-                        </div>
+                                    <button
+                                        onClick={() =>
+                                            navigator.clipboard.writeText(displayedCode)
+                                        }
+                                    >
+                                        Copy
+                                    </button>
+                                </div>
 
-                        <SyntaxHighlighter
-                            language="javascript"
-                            style={customTheme}
-                            showLineNumbers
-                            customStyle={{
-                                margin: 0,
-                                padding: "10px 14px",
-                                background: "#172437",
-                                fontSize: "11px",
-                                lineHeight: "1.35",
-                                fontFamily:
-                                    '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace',
-                            }}
-                        >
-                            {displayedCode}
-                        </SyntaxHighlighter>
-                    </div>
+                                <SyntaxHighlighter
+                                    language={
+                                        activeCodeTab === "curl"
+                                            ? "bash"
+                                            : activeCodeTab === "backend"
+                                                ? backendInfo?.language ?? "javascript"
+                                                : "javascript"
+                                    }
+                                    style={customTheme}
+                                    showLineNumbers
+                                    customStyle={{
+                                        margin: 0,
+                                        padding: "10px 14px",
+                                        background: "#172437",
+                                        fontSize: "11px",
+                                        lineHeight: "1.35",
+                                        fontFamily:
+                                            '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace',
+                                    }}
+                                >
+                                    {displayedCode}
+                                </SyntaxHighlighter>
+                            </div>
+                        </>
+                    )}
 
-                    <a
+                    {/* <a
                         className="inline-doc-link"
                         href="https://docs.adyen.com/"
                         target="_blank"
@@ -445,7 +503,7 @@ const checkout = await AdyenCheckout({
                     >
                         Learn more about creating a payment session in our docs
                         <ExternalLink size={14} />
-                    </a>
+                    </a> */}
 
                     <div className="integration-card-footer">
                         <button className="back-button" onClick={previousStep}>
