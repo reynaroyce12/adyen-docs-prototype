@@ -539,6 +539,30 @@ const checkout = await AdyenCheckout({
                     <h3>Why this matters</h3>
 
                     <p>
+                        {stepContent.whyItMatters}
+                    </p>
+                </div>
+
+                <div className="right-section">
+                    <h3>Helpful links</h3>
+
+                    {stepContent.helpfulLinks.map((link) => (
+                        <a
+                            key={link.url}
+                            href={link.url}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            {link.label}
+                            <ExternalLink size={14} />
+                        </a>
+                    ))}
+                </div>
+
+                {/* <div className="right-section">
+                    <h3>Why this matters</h3>
+
+                    <p>
                         The integration flow determines how you collect payment details,
                         handle authentication and manage the payment lifecycle. The
                         Sessions flow makes it easy to get started and is suitable for most
@@ -584,7 +608,7 @@ const checkout = await AdyenCheckout({
                         Advanced flow
                         <ExternalLink size={14} />
                     </a>
-                </div>
+                </div> */}
 
                 {nextStep && (
                     <div className="right-section next-up-section">

@@ -2,15 +2,25 @@ export type PathStepContent = {
   eyebrow: string;
   title: string;
   intro: string;
+
   actions?: {
     title: string;
     description: string;
   }[];
+
   callout?: {
     title: string;
     description: string;
   };
+
   links?: {
+    label: string;
+    url: string;
+  }[];
+
+  whyItMatters: string;
+
+  helpfulLinks: {
     label: string;
     url: string;
   }[];
@@ -22,6 +32,7 @@ export const pathContent: Record<number, PathStepContent> = {
     title: "Set up your test account",
     intro:
       "Create a test environment so you can build and validate your integration without processing live payments.",
+
     actions: [
       {
         title: "Create your Adyen account",
@@ -33,15 +44,31 @@ export const pathContent: Record<number, PathStepContent> = {
           "Use your company account and merchant account setup to mirror how you plan to operate.",
       },
     ],
+
     callout: {
       title: "You only need this once",
       description:
         "If you already have a test account, you can move straight to API credentials.",
     },
+
     links: [
       {
         label: "Online payments integration checklist",
         url: "https://docs.adyen.com/online-payments/integration-checklist/",
+      },
+    ],
+
+    whyItMatters:
+      "Your test environment gives you a safe place to build and validate the integration before using live payment details.",
+
+    helpfulLinks: [
+      {
+        label: "Online payments checklist",
+        url: "https://docs.adyen.com/online-payments/integration-checklist/",
+      },
+      {
+        label: "Development resources",
+        url: "https://docs.adyen.com/development-resources/",
       },
     ],
   },
@@ -51,6 +78,7 @@ export const pathContent: Record<number, PathStepContent> = {
     title: "Get your API credentials",
     intro:
       "Use an API key for server-side requests and a client key for your browser or app integration.",
+
     actions: [
       {
         title: "Open API credentials",
@@ -68,15 +96,31 @@ export const pathContent: Record<number, PathStepContent> = {
           "Use the client key from your credential for Adyen's client-side components.",
       },
     ],
+
     callout: {
       title: "Keep secrets server-side",
       description:
         "Your API key authenticates server requests and should not be included in frontend code.",
     },
+
     links: [
       {
         label: "API credentials",
         url: "https://docs.adyen.com/development-resources/api-credentials/",
+      },
+    ],
+
+    whyItMatters:
+      "API credentials identify and authorize your integration. Keep your API key server-side and use the client key only where intended in the client integration.",
+
+    helpfulLinks: [
+      {
+        label: "API credentials",
+        url: "https://docs.adyen.com/development-resources/api-credentials/",
+      },
+      {
+        label: "Development resources",
+        url: "https://docs.adyen.com/development-resources/",
       },
     ],
   },
@@ -85,13 +129,85 @@ export const pathContent: Record<number, PathStepContent> = {
     eyebrow: "Step 3",
     title: "Choose your integration flow",
     intro:
-      "For most online payment integrations, Adyen recommends starting with the Sessions flow.",
+      "For most online payment integrations, start with the Sessions flow.",
+
     callout: {
       title: "Recommended",
       description:
         "Sessions uses a single Checkout API request and supports most online payment integrations.",
     },
+
     links: [
+      {
+        label: "Build your integration",
+        url: "https://docs.adyen.com/online-payments/build-your-integration/",
+      },
+      {
+        label: "Sessions flow",
+        url: "https://docs.adyen.com/online-payments/build-your-integration/sessions-flow/",
+      },
+    ],
+
+    whyItMatters:
+      "The integration flow determines how your server and client exchange payment data. Sessions is the standard starting point for most online payment integrations.",
+
+    helpfulLinks: [
+      {
+        label: "Sessions flow overview",
+        url: "https://docs.adyen.com/online-payments/build-your-integration/sessions-flow/",
+      },
+      {
+        label: "Choose your integration",
+        url: "https://docs.adyen.com/online-payments/build-your-integration/",
+      },
+      {
+        label: "Advanced flow",
+        url: "https://docs.adyen.com/online-payments/build-your-integration/advanced-flow/",
+      },
+    ],
+  },
+
+  4: {
+    eyebrow: "Step 4",
+    title: "Add checkout",
+    intro:
+      "Connect your server-side session to Adyen's client-side payment experience.",
+
+    actions: [
+      {
+        title: "Create a payment session",
+        description:
+          "Call the Sessions endpoint from your server using your API credentials.",
+      },
+      {
+        title: "Add Adyen Web",
+        description:
+          "Install the Adyen Web library and initialize checkout on your frontend.",
+      },
+      {
+        title: "Render Drop-in",
+        description:
+          "Mount Drop-in in your payment page and pass it the session data.",
+      },
+    ],
+
+    callout: {
+      title: "Your integration has three parts",
+      description:
+        "Payment server, client application and webhook server work together to complete the payment lifecycle.",
+    },
+
+    links: [
+      {
+        label: "Sessions flow integration guide",
+        url: "https://docs.adyen.com/online-payments/build-your-integration/sessions-flow/",
+      },
+    ],
+
+    whyItMatters:
+      "This is where your server-side payment session connects to the checkout experience your shopper sees.",
+
+    helpfulLinks: [
       {
         label: "Build your integration",
         url: "https://docs.adyen.com/online-payments/build-your-integration/",
@@ -103,46 +219,12 @@ export const pathContent: Record<number, PathStepContent> = {
     ],
   },
 
-  4: {
-    eyebrow: "Step 4",
-    title: "Add checkout",
-    intro:
-      "Connect your server-side session to Adyen's client-side payment experience.",
-    actions: [
-      {
-        title: "Create a payment session",
-        description:
-          "Call the Sessions endpoint from your server using your API credentials.",
-      },
-      {
-        title: "Add Adyen Web",
-        description:
-          "Install the Adyen Web library and initialize the checkout on your frontend.",
-      },
-      {
-        title: "Render Drop-in",
-        description:
-          "Mount Drop-in in your payment page and pass it the session data.",
-      },
-    ],
-    callout: {
-      title: "Your integration has three parts",
-      description:
-        "Payment server, client application and webhook server work together to complete the payment lifecycle.",
-    },
-    links: [
-      {
-        label: "Sessions flow integration guide",
-        url: "https://docs.adyen.com/online-payments/build-your-integration/sessions-flow/",
-      },
-    ],
-  },
-
   5: {
     eyebrow: "Step 5",
     title: "Configure webhooks",
     intro:
       "Use webhooks to receive asynchronous payment events and keep your application state in sync.",
+
     actions: [
       {
         title: "Create your webhook endpoint",
@@ -160,15 +242,35 @@ export const pathContent: Record<number, PathStepContent> = {
           "Use webhook events as the reliable source for payment status updates.",
       },
     ],
+
     callout: {
       title: "Don't rely only on the browser",
       description:
         "Payment results can continue after the shopper leaves your frontend, so server-side events matter.",
     },
+
     links: [
       {
         label: "Webhooks",
         url: "https://docs.adyen.com/development-resources/webhooks/",
+      },
+    ],
+
+    whyItMatters:
+      "Payments can complete asynchronously. Webhooks keep your backend synchronized with payment status changes and other Adyen events.",
+
+    helpfulLinks: [
+      {
+        label: "Webhooks overview",
+        url: "https://docs.adyen.com/development-resources/webhooks/",
+      },
+      {
+        label: "Configure webhooks",
+        url: "https://docs.adyen.com/development-resources/webhooks/configure-and-manage/",
+      },
+      {
+        label: "Handle webhook events",
+        url: "https://docs.adyen.com/development-resources/webhooks/handle-webhook-events/",
       },
     ],
   },
@@ -178,6 +280,7 @@ export const pathContent: Record<number, PathStepContent> = {
     title: "Test your integration",
     intro:
       "Validate the full payment flow in Adyen's test environment before you accept live payments.",
+
     actions: [
       {
         title: "Run a successful payment",
@@ -195,15 +298,31 @@ export const pathContent: Record<number, PathStepContent> = {
           "Make sure your server receives and processes the expected events.",
       },
     ],
+
     callout: {
       title: "Test end to end",
       description:
-        "Adyen recommends testing both client-side and server-side behavior together with webhooks.",
+        "Validate client-side, server-side and webhook behavior together before moving to production.",
     },
+
     links: [
       {
-        label: "Testing your online payments integration",
+        label: "Testing resources",
         url: "https://docs.adyen.com/development-resources/testing/",
+      },
+    ],
+
+    whyItMatters:
+      "Testing the full payment lifecycle helps you catch integration issues before shoppers encounter them in production.",
+
+    helpfulLinks: [
+      {
+        label: "Testing resources",
+        url: "https://docs.adyen.com/development-resources/testing/",
+      },
+      {
+        label: "Developer dashboard",
+        url: "https://docs.adyen.com/development-resources/developer-dashboard/",
       },
     ],
   },
@@ -213,6 +332,7 @@ export const pathContent: Record<number, PathStepContent> = {
     title: "Go live",
     intro:
       "Configure your live environment, verify production settings and run a real payment before launch.",
+
     actions: [
       {
         title: "Configure your live Customer Area",
@@ -230,15 +350,31 @@ export const pathContent: Record<number, PathStepContent> = {
           "Verify the complete production flow before opening it to shoppers.",
       },
     ],
+
     callout: {
       title: "Test settings do not carry over",
       description:
         "Your live Customer Area needs its own credentials, webhooks and configuration.",
     },
+
     links: [
       {
         label: "Go-live checklist",
         url: "https://docs.adyen.com/online-payments/go-live-checklist/",
+      },
+    ],
+
+    whyItMatters:
+      "Your live environment has separate configuration from test, including credentials, webhooks and account settings.",
+
+    helpfulLinks: [
+      {
+        label: "Go-live checklist",
+        url: "https://docs.adyen.com/online-payments/go-live-checklist/",
+      },
+      {
+        label: "Developer dashboard",
+        url: "https://docs.adyen.com/development-resources/developer-dashboard/",
       },
     ],
   },
