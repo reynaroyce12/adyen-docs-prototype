@@ -48,13 +48,26 @@ button {
     gap: 12px;
     white-space: nowrap;
 }
-/* 
-.adyen-logo {
-    font-size: 10px;
-    font-weight: 800;
-    color: var(--green);
-    letter-spacing: -1.5px;
-} */
+
+.concept-footer {
+  position: fixed;
+
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+
+  width: max-content;
+  max-width: 70%;
+
+  color: #aab3bf;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+
+  pointer-events: none;
+  z-index: 20;
+}
 
 .docs-label {
     font-size: 12px;

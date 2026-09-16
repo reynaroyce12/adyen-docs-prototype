@@ -9,12 +9,12 @@ function Header() {
       </div>
 
       <nav className="top-nav">
-        <button>Payments⌄</button>
-        <button>Platforms⌄</button>
-        <button>In-person⌄</button>
+        <button>Payments</button>
+        <button>Platforms</button>
+        <button>In-person</button>
         <button>Business users</button>
         <button>API reference</button>
-        <button>Resources⌄</button>
+        <button>Resources</button>
       </nav>
 
       <div className="top-actions">
