@@ -449,20 +449,6 @@ button {
     gap: 18px;
 }
 
-.continue-button:disabled {
-  background: #d8dee8;
-  color: #8a96a8;
-  cursor: not-allowed;
-  box-shadow: none;
-  opacity: 1;
-}
-
-.continue-button:disabled:hover {
-  background: #d8dee8;
-  transform: none;
-  box-shadow: none;
-}
-
 .step-info-panel {
     display: flex;
     flex-direction: column;
@@ -2171,4 +2157,15 @@ button {
   margin-top: 14px;
   color: var(--text-muted);
   font-size: 12px;
+}
+
+.concept-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8f9092;
+  margin-left: 0px;
+  span{
+    margin-right: 5px;
+    margin-left: 5px;
+  }
 }

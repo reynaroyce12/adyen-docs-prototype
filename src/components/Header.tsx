@@ -5,7 +5,11 @@ function Header() {
     <header className="topbar">
       <div className="brand">
         <Adyen size={72} />
-        <span className="docs-label"><span className="brand-divider">|</span> DOCS</span>
+        <span className="docs-label">
+          <span className="brand-divider">|</span> DOCS
+        <span className="concept-label"> <span>•</span>A CONCEPT PROJECT</span>
+
+        </span>
       </div>
 
       <nav className="top-nav">
