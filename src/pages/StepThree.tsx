@@ -42,14 +42,6 @@ const useCaseLabels: Record<string, string> = {
     payouts: "Payouts",
 };
 
-// const frontendLabels: Record<string, string> = {
-//     web: "Web",
-//     ios: "iOS",
-//     android: "Android",
-//     "react-native": "React Native",
-//     flutter: "Flutter",
-// };
-
 const frameworkLabels: Record<string, string> = {
     react: "React",
     vue: "Vue",
@@ -57,13 +49,6 @@ const frameworkLabels: Record<string, string> = {
     vanilla: "Vanilla JavaScript",
 };
 
-// const backendLabels: Record<string, string> = {
-//     node: "Node.js",
-//     java: "Java",
-//     python: "Python",
-//     go: "Go",
-//     dotnet: ".NET",
-// };
 
 type StepThreeProps = {
     selected: string;
@@ -80,12 +65,9 @@ type StepThreeProps = {
 };
 
 function StepThree({ selected, onSelect, useCase, framework, onBack, onGenerate, onChangeSetup }: StepThreeProps) {
-    // const [selected, setSelected] = useState("scratch");
 
     const useCaseLabel = useCaseLabels[useCase] ?? useCase;
-    // const frontendLabel = frontendLabels[frontend] ?? frontend;
     const frameworkLabel = frameworkLabels[framework] ?? framework;
-    // const backendLabel = backendLabels[backend] ?? backend;
 
     return (
         <div className="step-page">

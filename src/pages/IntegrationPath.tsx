@@ -49,47 +49,6 @@ const customTheme = {
     },
 };
 
-// const steps = [
-//     {
-//         number: 1,
-//         title: "Set up your test account",
-//         description: "Create your Adyen test environment",
-//     },
-//     {
-//         number: 2,
-//         title: "Get API credentials",
-//         description: "Retrieve your API key and client key",
-//     },
-//     {
-//         number: 3,
-//         title: "Choose your integration flow",
-//         description: "Select the right flow for your use case",
-//     },
-//     {
-//         number: 4,
-//         title: "Add checkout",
-//         description:
-//             frontend === "web"
-//                 ? `Integrate Adyen into your ${frameworkLabel} app`
-//                 : `Integrate Adyen into your ${frontendLabel} app`,
-//     },
-//     {
-//         number: 5,
-//         title: "Configure webhooks",
-//         description: `Connect payment events to your ${backendLabel} server`,
-//     },
-//     {
-//         number: 6,
-//         title: "Test integration",
-//         description: "Simulate successful and failed payments",
-//     },
-//     {
-//         number: 7,
-//         title: "Go live",
-//         description: "Prepare your integration for production",
-//     },
-// ];
-
 function IntegrationPath({
     useCase,
     framework,
@@ -210,10 +169,6 @@ const checkout = await AdyenCheckout({
                 : curlCode;
 
     const progress = Math.round((currentStep / steps.length) * 100);
-
-    // const currentStepData = steps.find(
-    //     (step) => step.number === currentStep
-    // )!;
 
     const nextStep =
         currentStep < steps.length
@@ -409,20 +364,6 @@ const checkout = await AdyenCheckout({
                         </div>
                     )}
 
-                    {/* <div className="recommended-box">
-                        <div className="recommended-check">
-                            <Check size={14} />
-                        </div>
-
-                        <div>
-                            <strong>Recommended</strong>
-                            <p>
-                                The Sessions flow is recommended for most online payments
-                                integrations.
-                            </p>
-                        </div>
-                    </div> */}
-
                     {(currentStep === 3 || currentStep === 4) && (
                         <>
                             <div className="code-tabs">
@@ -495,16 +436,6 @@ const checkout = await AdyenCheckout({
                         </>
                     )}
 
-                    {/* <a
-                        className="inline-doc-link"
-                        href="https://docs.adyen.com/"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Learn more about creating a payment session in our docs
-                        <ExternalLink size={14} />
-                    </a> */}
-
                     <div className="integration-card-footer">
                         <button
                             className="back-button"
@@ -562,57 +493,6 @@ const checkout = await AdyenCheckout({
                         </a>
                     ))}
                 </div>
-
-                {/* <div className="right-section">
-                    <h3>Why this matters</h3>
-
-                    <p>
-                        The integration flow determines how you collect payment details,
-                        handle authentication and manage the payment lifecycle. The
-                        Sessions flow makes it easy to get started and is suitable for most
-                        use cases.
-                    </p>
-                </div>
-
-                <div className="right-section">
-                    <h3>Helpful links</h3>
-
-                    <a
-                        href="https://docs.adyen.com/online-payments/build-your-integration/sessions-flow"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Sessions flow overview
-                        <ExternalLink size={14} />
-                    </a>
-
-                    <a
-                        href="https://docs.adyen.com/online-payments/build-your-integration"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Choose your integration
-                        <ExternalLink size={14} />
-                    </a>
-
-                    <a
-                        href="https://docs.adyen.com/online-payments/build-your-integration/sessions-flow"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Drop-in component ({frameworkLabel})
-                        <ExternalLink size={14} />
-                    </a>
-
-                    <a
-                        href="https://docs.adyen.com/online-payments/build-your-integration/advanced-flow"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Advanced flow
-                        <ExternalLink size={14} />
-                    </a>
-                </div> */}
 
                 {nextStep && (
                     <div className="right-section next-up-section">
